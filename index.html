@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0866ff">
+<title>MERCADÃO 🐯 | Academia de Inteligência Artificial</title>
+<style>
+:root{
+  --bg:#f5f8ff;--surface:#fff;--surface2:#edf4ff;
+  --text:#17243a;--muted:#697990;--border:#dce6f4;
+  --blue:#0866ff;--blue2:#0048c9;--shadow:0 7px 28px #1b4c8b0b;
+}
+body.dark{
+  --bg:#0b1120;--surface:#131d30;--surface2:#1a2a43;
+  --text:#edf4ff;--muted:#a2b1c8;--border:#293951;
+  --blue:#6ba1ff;--blue2:#8cb5ff;--shadow:0 8px 28px #0002;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+ line-height:1.65;transition:background .2s,color .2s
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+header{
+ position:sticky;top:0;z-index:20;background:var(--surface);
+ border-bottom:1px solid var(--border)
+}
+.nav{
+ max-width:1200px;margin:auto;padding:13px 20px;display:flex;
+ justify-content:space-between;align-items:center;gap:12px
+}
+.logo{font-size:19px;font-weight:950;letter-spacing:-.6px}
+.logo span{color:var(--blue)}
+.navright{display:flex;align-items:center;gap:9px}
+.navlinks{display:flex;gap:17px;align-items:center}
+.navlinks a{font-size:13px;font-weight:750;color:var(--muted)}
+.btn{
+ border:1px solid transparent;border-radius:11px;padding:11px 15px;
+ display:inline-flex;align-items:center;justify-content:center;gap:7px;
+ font-size:13px;font-weight:850;transition:.18s
+}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:var(--blue);color:#fff}
+.discord{background:#5865f2;color:white}
+.secondary{background:var(--surface);border-color:var(--border);color:var(--text)}
+.themebtn{
+ width:42px;height:42px;border-radius:12px;border:1px solid var(--border);
+ background:var(--surface2);color:var(--text);font-size:19px
+}
+.hero{
+ text-align:center;padding:75px 20px 55px;
+ background:radial-gradient(ellipse at 50% 0%,#b9d6ff70,transparent 68%)
+}
+.eyebrow{
+ display:inline-block;padding:6px 12px;border:1px solid var(--border);
+ border-radius:30px;background:var(--surface);color:var(--blue);
+ font-size:11px;font-weight:900;letter-spacing:1px
+}
+h1{font-size:clamp(37px,6vw,66px);line-height:1.08;
+ letter-spacing:-2px;margin:20px auto;max-width:850px}
+h1 span{color:var(--blue)}
+.hero p{max-width:680px;margin:0 auto 23px;color:var(--muted)}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.stats{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+ max-width:700px;margin:35px auto 0
+}
+.stat{padding:13px;background:var(--surface);border:1px solid var(--border);border-radius:13px}
+.stat strong{display:block;font-size:22px;color:var(--blue)}
+.stat span{font-size:11px;color:var(--muted)}
+.layout{
+ max-width:1200px;margin:auto;padding:28px 20px 70px;
+ display:grid;grid-template-columns:220px minmax(0,1fr);gap:27px
+}
+.sidebar{position:sticky;top:83px;align-self:start}
+.sidebox{background:var(--surface);border:1px solid var(--border);
+ border-radius:15px;padding:13px}
+.sidebox b{display:block;padding:8px;font-size:12px}
+.sidebox a{display:block;padding:9px;border-radius:9px;
+ font-size:12px;color:var(--muted);font-weight:700}
+.sidebox a:hover{background:var(--surface2);color:var(--blue)}
+.content{min-width:0}
+.section{margin-bottom:55px;scroll-margin-top:90px}
+.kicker{font-size:10px;color:var(--blue);font-weight:950;letter-spacing:1.5px}
+h2{font-size:clamp(24px,3.5vw,34px);line-height:1.2;letter-spacing:-.7px;margin:7px 0}
+h3{font-size:16px;margin:8px 0}
+.sub{color:var(--muted);font-size:13px;margin:8px 0 20px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.card{min-width:0;background:var(--surface);border:1px solid var(--border);
+ border-radius:16px;padding:19px;box-shadow:var(--shadow)}
+.card p{color:var(--muted);font-size:13px}
+.icon{width:40px;height:40px;display:grid;place-items:center;
+ border-radius:12px;background:var(--surface2);font-size:20px}
+.example{
+ padding:13px;border-radius:11px;background:var(--surface2);
+ border:1px solid var(--border);font-size:12px;white-space:pre-wrap;
+ overflow-wrap:anywhere;margin:12px 0
+}
+.copy{border:1px solid var(--border);background:var(--surface2);
+ color:var(--blue);padding:9px 11px;border-radius:9px;
+ font-size:11px;font-weight:900}
+.lessonlist{display:grid;gap:10px}
+.lesson{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.lesson summary{cursor:pointer;list-style:none;display:flex;align-items:center;
+ gap:12px;padding:16px;font-size:13px;font-weight:850}
+.lesson summary::-webkit-details-marker{display:none}
+.lesson summary:after{content:"+";margin-left:auto;color:var(--blue);font-size:21px}
+.lesson[open] summary:after{content:"−"}
+.num{background:var(--surface2);color:var(--blue);border-radius:9px;
+ width:34px;height:34px;display:grid;place-items:center;flex-shrink:0}
+.lessonbody{padding:0 18px 20px 62px;font-size:13px;color:var(--muted)}
+.lessonbody h4{color:var(--text);margin:18px 0 5px}
+.lessonbody li{margin:6px 0}
+.lessoncheck{accent-color:var(--blue)}
+.progressbar{height:6px;background:var(--surface2);border-radius:9px;overflow:hidden}
+#progress{height:100%;width:0;background:var(--blue);transition:width .2s}
+.search{width:100%;padding:13px;border-radius:11px;border:1px solid var(--border);
+ background:var(--surface);color:var(--text);outline:none}
+.search:focus{border-color:var(--blue)}
+.categories{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0}
+.cat{padding:8px 12px;border:1px solid var(--border);background:var(--surface);
+ color:var(--muted);border-radius:30px;font-size:11px;font-weight:850}
+.cat.active{background:var(--blue);color:white;border-color:var(--blue)}
+.commandgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cmd{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:14px}
+.cmdtop{display:flex;align-items:start;justify-content:space-between;gap:7px}
+.cmd code{color:var(--blue);font-size:12px;font-weight:900;overflow-wrap:anywhere}
+.tag{background:var(--surface2);color:var(--muted);font-size:9px;padding:4px 6px;border-radius:6px}
+.cmd p{font-size:11px;color:var(--muted);min-height:34px}
+.notice{background:var(--surface2);border:1px solid var(--border);
+ border-radius:12px;padding:14px;font-size:12px;color:var(--muted);margin:14px 0}
+.field{display:grid;gap:5px;margin-bottom:12px}
+.field label{font-size:12px;font-weight:800}
+.field input,.field select,.field textarea{
+ width:100%;padding:11px;border:1px solid var(--border);border-radius:10px;
+ background:var(--bg);color:var(--text);min-width:0
+}
+.field textarea{min-height:100px;resize:vertical}
+.result{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--surface2);
+ border:1px solid var(--border);padding:16px;border-radius:12px;font-size:12px}
+.quizq{border:1px solid var(--border);padding:14px;border-radius:12px;margin:10px 0;background:var(--surface)}
+.quizq label{display:block;font-size:12px;padding:5px 0;cursor:pointer}
+.quizq input{accent-color:var(--blue)}
+.cta{padding:34px 22px;border-radius:20px;text-align:center;
+ background:linear-gradient(130deg,#0866ff,#003ea8);color:white}
+.cta p{font-size:13px;color:#e1ebff}
+.cta .secondary{color:#17243a;background:white}
+footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
+footer strong{color:var(--blue)}
+.hidden{display:none!important}
+@media(max-width:900px){
+ .layout{grid-template-columns:1fr}
+ .sidebar{position:static}
+ .sidebox{display:flex;flex-wrap:wrap;align-items:center;gap:3px}
+ .sidebox b{width:100%}
+ .navlinks a:not(.discord){display:none}
+}
+@media(max-width:580px){
+ .nav{padding:10px}.logo{font-size:15px}.nav .btn{font-size:10px;padding:9px}
+ .hero{padding:55px 16px 38px}
+ .layout{padding:20px 13px 50px}
+ .grid,.commandgrid{grid-template-columns:1fr}
+ .stats{gap:5px}.stat strong{font-size:18px}.stat span{font-size:9px}
+ .lessonbody{padding:0 15px 18px}
+ .cta{padding:25px 14px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <nav class="nav">
+  <a class="logo" href="#inicio">MERCADÃO <span>🐯</span></a>
+  <div class="navright">
+   <div class="navlinks">
+    <a href="#curso">Curso</a>
+    <a href="#laboratorio">Laboratório</a>
+    <a href="#comandos">Comandos</a>
+    <a class="btn discord" href="https://discord.gg/rxYgAyEpKu" target="_blank" rel="noopener noreferrer">Discord ↗</a>
+   </div>
+   <button class="themebtn" id="themeToggle" aria-label="Ativar modo escuro" title="Alternar tema">🌙</button>
+  </div>
+ </nav>
+</header>
+
+<section class="hero" id="inicio">
+ <span class="eyebrow">🐯 MERCADÃO • ACADEMIA DE IA</span>
+ <h1>Aprenda IA de verdade.<br><span>Vá além do básico.</span></h1>
+ <p>Um curso prático sobre prompts, imagens, edição, vídeos, produtividade, automação e técnicas avançadas de inteligência artificial.</p>
+ <div class="actions">
+  <a class="btn primary" href="#curso">Começar a estudar ↓</a>
+  <a class="btn secondary" href="#laboratorio">Criar um prompt</a>
+  <a class="btn discord" href="https://discord.gg/rxYgAyEpKu" target="_blank" rel="noopener noreferrer">Entrar no Discord ↗</a>
+ </div>
+ <div class="stats">
+  <div class="stat"><strong>16</strong><span>Aulas detalhadas</span></div>
+  <div class="stat"><strong>100+</strong><span>Atalhos pesquisáveis</span></div>
+  <div class="stat"><strong>Interativo</strong><span>Exercícios e ferramentas</span></div>
+ </div>
+</section>
+
+<div class="layout">
+ <aside class="sidebar">
+  <div class="sidebox">
+   <b>📚 NAVEGAÇÃO</b>
+   <a href="#curso">Aulas do curso</a>
+   <a href="#fundamentos">Fundamentos de prompts</a>
+   <a href="#laboratorio">Gerador de prompts</a>
+   <a href="#comandos">Biblioteca de comandos</a>
+   <a href="#imagem">Prompts de imagem</a>
+   <a href="#texto">IA para textos e estudos</a>
+   <a href="#automacao">Automação e produtividade</a>
+   <a href="#seguranca">Segurança e limitações</a>
+   <a href="#quiz">Teste seus conhecimentos</a>
+   <a href="#comunidade">Comunidade MERCADÃO</a>
+  </div>
+ </aside>
+
+ <main class="content">
+  <section class="section" id="curso">
+   <div class="kicker">SUA JORNADA</div>
+   <h2>Curso completo de inteligência artificial</h2>
+   <p class="sub">Abra uma aula, pratique o exemplo e marque-a como concluída. Seu progresso fica salvo neste navegador.</p>
+   <div class="progressbar"><div id="progress"></div></div>
+   <p class="sub" id="progressText">0 de 16 aulas concluídas</p>
+   <div class="lessonlist" id="lessonList"></div>
+  </section>
+
+  <section class="section" id="fundamentos">
+   <div class="kicker">MÓDULO EXTRA</div>
+   <h2>As técnicas que melhoram qualquer prompt</h2>
+   <p class="sub">Não existe uma frase mágica que garanta resultados perfeitos. O segredo é fornecer instruções claras e testar.</p>
+   <div class="grid">
+    <article class="card">
+     <div class="icon">🎯</div><h3>1. Contexto + objetivo</h3>
+     <p>Diga o que está criando, para quem e qual resultado espera.</p>
+     <div class="example">Estou criando um banner para uma loja gamer no Discord. Quero divulgar benefícios para membros. Público jovem, linguagem natural e visual azul e branco.</div>
+     <button class="copy" data-copy="Estou criando um banner para uma loja gamer no Discord. Quero divulgar benefícios para membros. Público jovem, linguagem natural e visual azul e branco.">Copiar</button>
+    </article>
+    <article class="card">
+     <div class="icon">🧱</div><h3>2. Divida em etapas</h3>
+     <p>Para tarefas grandes, trabalhe por fases em vez de pedir tudo de uma vez.</p>
+     <div class="example">Primeiro organize as ideias. Depois apresente uma estrutura. Em seguida desenvolva cada seção. No final, revise a consistência e a clareza.</div>
+     <button class="copy" data-copy="Primeiro organize as ideias. Depois apresente uma estrutura. Em seguida desenvolva cada seção. No final, revise a consistência e a clareza.">Copiar</button>
+    </article>
+    <article class="card">
+     <div class="icon">🔍</div><h3>3. Peça uma revisão</h3>
+     <p>Use critérios concretos para identificar problemas no resultado.</p>
+     <div class="example">Revise o resultado usando estes critérios: clareza, precisão, coerência, utilidade e respeito às minhas instruções. Aponte erros e apresente uma versão corrigida.</div>
+     <button class="copy" data-copy="Revise o resultado usando estes critérios: clareza, precisão, coerência, utilidade e respeito às minhas instruções. Aponte erros e apresente uma versão corrigida.">Copiar</button>
+    </article>
+    <article class="card">
+     <div class="icon">🧪</div><h3>4. Compare versões</h3>
+     <p>Teste variações controladas para descobrir qual funciona melhor.</p>
+     <div class="example">Crie três versões do mesmo conceito. A primeira minimalista, a segunda cinematográfica e a terceira comercial. Mantenha o assunto, o texto e o formato iguais para facilitar a comparação.</div>
+     <button class="copy" data-copy="Crie três versões do mesmo conceito. A primeira minimalista, a segunda cinematográfica e a terceira comercial. Mantenha o assunto, o texto e o formato iguais para facilitar a comparação.">Copiar</button>
+    </article>
+   </div>
+  </section>
+
+  <section class="section" id="laboratorio">
+   <div class="kicker">FERRAMENTA INTERATIVA</div>
+   <h2>Laboratório de prompts</h2>
+   <p class="sub">Preencha os campos e monte uma instrução personalizada para copiar e usar na sua IA.</p>
+   <div class="card">
+    <div class="field"><label for="goal">O que você quer criar?</label><input id="goal" placeholder="Ex.: thumbnail para YouTube"></div>
+    <div class="field"><label for="subject">Assunto principal</label><input id="subject" placeholder="Ex.: personagem de jogo"></div>
+    <div class="field"><label for="style">Estilo visual</label>
+     <select id="style">
+      <option>Realista</option><option>3D estilo jogo</option><option>Cinematográfico</option>
+      <option>Minimalista</option><option>Fotografia profissional</option>
+      <option>Ilustração</option><option>Anime</option><option>Design comercial</option>
+     </select>
+    </div>
+    <div class="field"><label for="colors">Cores</label><input id="colors" value="Azul e branco"></div>
+    <div class="field"><label for="light">Iluminação</label>
+     <select id="light">
+      <option>Luz natural suave</option><option>Luz forte de dia</option>
+      <option>Iluminação cinematográfica</option><option>Luz de estúdio</option>
+      <option>Neon discreto</option><option>Golden hour</option>
+     </select>
+    </div>
+    <div class="field"><label for="composition">Composição</label><input id="composition" placeholder="Ex.: personagem à direita, espaço à esquerda"></div>
+    <div class="field"><label for="format">Formato</label>
+     <select id="format">
+      <option>16:9 horizontal</option><option>1:1 quadrado</option>
+      <option>9:16 vertical</option><option>4:5 retrato</option><option>3:2 fotografia</option>
+     </select>
+    </div>
+    <div class="field"><label for="avoid">O que deve evitar ou preservar?</label><textarea id="avoid" placeholder="Ex.: sem poluição visual, preservar o logotipo"></textarea></div>
+    <button class="btn primary" id="generate">Montar meu prompt ✨</button>
+    <div id="promptResult" class="result hidden" style="margin-top:14px"></div>
+    <button id="copyPrompt" class="copy hidden" style="margin-top:10px">Copiar prompt completo</button>
+   </div>
+  </section>
+
+  <section class="section" id="comandos">
+   <div class="kicker">BIBLIOTECA AVANÇADA</div>
+   <h2>Comandos, atalhos e técnicas visuais</h2>
+   <p class="sub">Pesquise por nome, efeito ou categoria. Clique para copiar o atalho.</p>
+   <div class="notice"><b>Como funcionam:</b> os nomes abaixo são atalhos didáticos de prompt, não comandos oficiais universais. Em geral, copie a expressão e inclua-a em uma instrução completa. Recursos específicos dependem da ferramenta.</div>
+   <input id="commandSearch" class="search" placeholder="🔎 Buscar: drone, foco, iluminação, edição..." aria-label="Pesquisar atalhos">
+   <div class="categories" id="categories"></div>
+   <div class="commandgrid" id="commandGrid"></div>
+   <p class="sub" id="commandCount"></p>
+  </section>
+
+  <section class="section" id="imagem">
+   <div class="kicker">CRIAÇÃO VISUAL</div>
+   <h2>Prompts prontos para imagens</h2>
+   <div class="grid">
+    <article class="card"><div class="icon">🎮</div><h3>Thumbnail gamer</h3>
+     <p>Para criar uma composição clara para vídeos.</p>
+     <div class="example">Crie uma thumbnail horizontal 16:9 para YouTube sobre [TEMA]. Personagens 3D com texturas detalhadas, iluminação diurna, cores equilibradas e cenário inspirado em jogos de roleplay. Destaque o assunto principal, mantenha espaço para o título e evite elementos desnecessários. Preserve a aparência da imagem de referência quando fornecida.</div>
+     <button class="copy" data-copy="Crie uma thumbnail horizontal 16:9 para YouTube sobre [TEMA]. Personagens 3D com texturas detalhadas, iluminação diurna, cores equilibradas e cenário inspirado em jogos de roleplay. Destaque o assunto principal, mantenha espaço para o título e evite elementos desnecessários. Preserve a aparência da imagem de referência quando fornecida.">Copiar prompt</button>
+    </article>
+    <article class="card"><div class="icon">🛒</div><h3>Produto comercial</h3>
+     <p>Para catálogos e divulgação de produtos.</p>
+     <div class="example">Fotografia comercial de [PRODUTO], centralizado sobre fundo limpo, iluminação de estúdio, sombras naturais, detalhes nítidos e composição premium. Paleta [CORES]. Sem elementos que distraiam do produto. Preserve as características reais e não invente logotipos ou especificações.</div>
+     <button class="copy" data-copy="Fotografia comercial de [PRODUTO], centralizado sobre fundo limpo, iluminação de estúdio, sombras naturais, detalhes nítidos e composição premium. Paleta [CORES]. Sem elementos que distraiam do produto. Preserve as características reais e não invente logotipos ou especificações.">Copiar prompt</button>
+    </article>
+    <article class="card"><div class="icon">✏️</div><h3>Edição precisa</h3>
+     <p>Para mudar uma única parte da imagem.</p>
+     <div class="example">Edite a imagem enviada e altere somente [ELEMENTO] para [MUDANÇA]. Preserve a composição, o restante dos objetos, as cores não especificadas, as proporções e os detalhes originais. Não adicione novos elementos.</div>
+     <button class="copy" data-copy="Edite a imagem enviada e altere somente [ELEMENTO] para [MUDANÇA]. Preserve a composição, o restante dos objetos, as cores não especificadas, as proporções e os detalhes originais. Não adicione novos elementos.">Copiar prompt</button>
+    </article>
+    <article class="card"><div class="icon">🏙️</div><h3>Vista aérea</h3>
+     <p>Para explorar diferentes perspectivas.</p>
+     <div class="example">Mostre [CENÁRIO] visto de um drone em altitude elevada, com ruas e edifícios organizados de forma coerente, luz natural e perspectiva aérea ampla. O assunto principal deve continuar reconhecível. Formato horizontal 16:9.</div>
+     <button class="copy" data-copy="Mostre [CENÁRIO] visto de um drone em altitude elevada, com ruas e edifícios organizados de forma coerente, luz natural e perspectiva aérea ampla. O assunto principal deve continuar reconhecível. Formato horizontal 16:9.">Copiar prompt</button>
+    </article>
+   </div>
+  </section>
+
+  <section class="section" id="texto">
+   <div class="kicker">IA PARA O DIA A DIA</div>
+   <h2>Textos, estudos e criação de conteúdo</h2>
+   <div class="grid">
+    <article class="card"><h3>✍️ Escrita natural</h3>
+     <div class="example">Reescreva o texto abaixo com linguagem natural, simples e direta. Preserve o significado, evite frases artificiais e não invente informações. Texto: [COLE AQUI]</div>
+     <button class="copy" data-copy="Reescreva o texto abaixo com linguagem natural, simples e direta. Preserve o significado, evite frases artificiais e não invente informações. Texto: [COLE AQUI]">Copiar</button>
+    </article>
+    <article class="card"><h3>📹 Ideias para vídeos</h3>
+     <div class="example">Sugira 10 ideias de vídeos sobre [ASSUNTO] para [PÚBLICO]. Para cada ideia, informe título, gancho inicial, desenvolvimento e motivo pelo qual pode interessar ao público. Não garanta visualizações ou viralização.</div>
+     <button class="copy" data-copy="Sugira 10 ideias de vídeos sobre [ASSUNTO] para [PÚBLICO]. Para cada ideia, informe título, gancho inicial, desenvolvimento e motivo pelo qual pode interessar ao público. Não garanta visualizações ou viralização.">Copiar</button>
+    </article>
+    <article class="card"><h3>📚 Professor particular</h3>
+     <div class="example">Ensine [ASSUNTO] começando pelo básico. Explique os conceitos em linguagem simples, mostre exemplos, proponha exercícios progressivos e corrija minhas tentativas explicando o raciocínio.</div>
+     <button class="copy" data-copy="Ensine [ASSUNTO] começando pelo básico. Explique os conceitos em linguagem simples, mostre exemplos, proponha exercícios progressivos e corrija minhas tentativas explicando o raciocínio.">Copiar</button>
+    </article>
+    <article class="card"><h3>🧠 Organizador de ideias</h3>
+     <div class="example">Organize estas ideias em categorias, identifique prioridades, dependências e próximos passos. Separe os fatos das sugestões e indique as informações que ainda faltam. Ideias: [COLE AQUI]</div>
+     <button class="copy" data-copy="Organize estas ideias em categorias, identifique prioridades, dependências e próximos passos. Separe os fatos das sugestões e indique as informações que ainda faltam. Ideias: [COLE AQUI]">Copiar</button>
+    </article>
+   </div>
+  </section>
+
+  <section class="section" id="automacao">
+   <div class="kicker">NÍVEL AVANÇADO</div>
+   <h2>Automação, código e produtividade</h2>
+   <div class="grid">
+    <article class="card"><h3>⚙️ Automatizar uma tarefa</h3>
+     <p>Primeiro desenhe o fluxo. Depois escolha uma ferramenta compatível.</p>
+     <div class="example">Ajude-me a planejar uma automação para [TAREFA]. Descreva os dados de entrada, as etapas, as decisões, os erros possíveis e o resultado esperado. Não execute ações externas sem minha confirmação.</div>
+     <button class="copy" data-copy="Ajude-me a planejar uma automação para [TAREFA]. Descreva os dados de entrada, as etapas, as decisões, os erros possíveis e o resultado esperado. Não execute ações externas sem minha confirmação.">Copiar</button>
+    </article>
+    <article class="card"><h3>💻 Criar um site</h3>
+     <p>Defina funcionalidades testáveis e peça o projeto completo.</p>
+     <div class="example">Crie um site responsivo para [OBJETIVO], usando HTML, CSS e JavaScript. Entregue o código completo, conecte todos os botões, implemente validação dos campos e trate estados vazios e erros. Não use links ou funções fictícias. Teste a lógica e explique como executar.</div>
+     <button class="copy" data-copy="Crie um site responsivo para [OBJETIVO], usando HTML, CSS e JavaScript. Entregue o código completo, conecte todos os botões, implemente validação dos campos e trate estados vazios e erros. Não use links ou funções fictícias. Teste a lógica e explique como executar.">Copiar</button>
+    </article>
+    <article class="card"><h3>🐞 Encontrar bugs</h3>
+     <div class="example">Analise este código. Identifique erros reproduzíveis, explique a causa e proponha correções mínimas. Preserve as funcionalidades existentes. Entregue o código corrigido completo e uma lista de testes. Código: [COLE AQUI]</div>
+     <button class="copy" data-copy="Analise este código. Identifique erros reproduzíveis, explique a causa e proponha correções mínimas. Preserve as funcionalidades existentes. Entregue o código corrigido completo e uma lista de testes. Código: [COLE AQUI]">Copiar</button>
+    </article>
+    <article class="card"><h3>📊 Analisar dados</h3>
+     <div class="example">Analise os dados fornecidos. Descreva tendências, possíveis anomalias e limitações. Diferencie observações de hipóteses, mostre como chegou às conclusões e não invente valores ausentes.</div>
+     <button class="copy" data-copy="Analise os dados fornecidos. Descreva tendências, possíveis anomalias e limitações. Diferencie observações de hipóteses, mostre como chegou às conclusões e não invente valores ausentes.">Copiar</button>
+    </article>
+   </div>
+  </section>
+
+  <section class="section" id="seguranca">
+   <div class="kicker">USO RESPONSÁVEL</div>
+   <h2>O que a IA consegue e o que não consegue</h2>
+   <div class="grid">
+    <article class="card"><h3>✅ Boas práticas</h3>
+     <ul class="sub">
+      <li>Confira fatos importantes em fontes confiáveis.</li>
+      <li>Teste o código antes de publicar.</li>
+      <li>Use imagens de referência quando necessário.</li>
+      <li>Proteja senhas, documentos e dados pessoais.</li>
+      <li>Confirme permissões antes de usar conteúdo de terceiros.</li>
+     </ul>
+    </article>
+    <article class="card"><h3>⚠️ Limitações</h3>
+     <ul class="sub">
+      <li>Uma IA pode inventar informações.</li>
+      <li>Palavras-chave não garantem um resultado específico.</li>
+      <li>Textos dentro de imagens podem sair incorretos.</li>
+      <li>Nem toda ferramenta aceita edição ou transparência.</li>
+      <li>Um código gerado precisa ser testado.</li>
+     </ul>
+    </article>
+   </div>
+  </section>
+
+  <section class="section" id="quiz">
+   <div class="kicker">TESTE SEU CONHECIMENTO</div>
+   <h2>Desafio do MERCADÃO</h2>
+   <p class="sub">Responda às perguntas e confira seu resultado.</p>
+   <div class="card">
+    <div class="quizq"><b>1. O que costuma melhorar um prompt?</b>
+     <label><input type="radio" name="q1" value="0"> Escrever somente uma palavra</label>
+     <label><input type="radio" name="q1" value="1"> Informar objetivo, contexto e detalhes relevantes</label>
+     <label><input type="radio" name="q1" value="0"> Colocar o máximo possível de palavras aleatórias</label>
+    </div>
+    <div class="quizq"><b>2. O comando /droneview é universal?</b>
+     <label><input type="radio" name="q2" value="0"> Sim, funciona em todas as IAs</label>
+     <label><input type="radio" name="q2" value="1"> Não, é um atalho descritivo cujo suporte depende da ferramenta</label>
+    </div>
+    <div class="quizq"><b>3. Como editar somente uma parte de uma imagem?</b>
+     <label><input type="radio" name="q3" value="1"> Especificar a mudança e o que deve permanecer igual</label>
+     <label><input type="radio" name="q3" value="0"> Não informar o que deve ser preservado</label>
+    </div>
+    <div class="quizq"><b>4. O que fazer se a IA gerar um dado duvidoso?</b>
+     <label><input type="radio" name="q4" value="0"> Aceitar como verdadeiro</label>
+     <label><input type="radio" name="q4" value="1"> Conferir em fontes confiáveis</label>
+    </div>
+    <div class="quizq"><b>5. Um código gerado por IA já está pronto para publicar?</b>
+     <label><input type="radio" name="q5" value="0"> Sempre</label>
+     <label><input type="radio" name="q5" value="1"> Não, deve ser testado e revisado</label>
+    </div>
+    <button class="btn primary" id="checkQuiz">Ver meu resultado</button>
+    <p id="quizResult" aria-live="polite"></p>
+   </div>
+  </section>
+
+  <section class="section" id="comunidade">
+   <div class="cta">
+    <h2>Entre para o MERCADÃO 🐯</h2>
+    <p>Acesse nosso Discord para conhecer a comunidade, acompanhar novidades, conferir a loja e ficar por dentro das oportunidades.</p>
+    <a class="btn secondary" href="https://discord.gg/rxYgAyEpKu" target="_blank" rel="noopener noreferrer">🚀 Entrar no Discord</a>
+   </div>
+  </section>
+ </main>
+</div>
+
+<footer>
+ <strong>MERCADÃO 🐯</strong> · Academia de Inteligência Artificial<br>
+ Material educativo. Os atalhos visuais não são comandos universais.
+</footer>
+
+<script>
+/* TEMA CLARO/ESCURO */
+const themeButton=document.getElementById("themeToggle");
+function setTheme(theme){
+ document.body.classList.toggle("dark",theme==="dark");
+ themeButton.textContent=theme==="dark"?"☀️":"🌙";
+ themeButton.title=theme==="dark"?"Ativar modo claro":"Ativar modo escuro";
+ themeButton.setAttribute("aria-label",themeButton.title);
+ document.querySelector('meta[name="theme-color"]').content=theme==="dark"?"#0b1120":"#0866ff";
+ try{localStorage.setItem("mercadao-theme",theme)}catch(e){}
+}
+let savedTheme=null;
+try{savedTheme=localStorage.getItem("mercadao-theme")}catch(e){}
+setTheme(savedTheme==="dark"?"dark":"light");
+themeButton.addEventListener("click",()=>{
+ setTheme(document.body.classList.contains("dark")?"light":"dark");
+});
+
+/* COPIAR TEXTO */
+async function copyText(value,button){
+ const old=button.textContent;
+ try{
+  if(navigator.clipboard&&window.isSecureContext){
+   await navigator.clipboard.writeText(value);
+  }else{
+   const t=document.createElement("textarea");
+   t.value=value;t.style.position="fixed";t.style.opacity="0";
+   document.body.appendChild(t);t.select();
+   const ok=document.execCommand("copy");t.remove();
+   if(!ok)throw Error("copy failed");
+  }
+  button.textContent="Copiado!";
+ }catch(e){
+  window.prompt("Copie o texto abaixo:",value);
+ }
+ setTimeout(()=>button.textContent=old,1600);
+}
+document.addEventListener("click",e=>{
+ const b=e.target.closest("[data-copy]");
+ if(b)copyText(b.dataset.copy,b);
+});
+
+/* GERADOR DE PROMPTS */
+document.getElementById("generate").addEventListener("click",()=>{
+ const get=id=>document.getElementById(id).value.trim();
+ const goal=get("goal"),subject=get("subject");
+ if(!goal||!subject){
+  alert("Preencha o objetivo e o assunto principal antes de gerar.");
+  return;
+ }
+ const prompt=
+ "Crie: "+goal+".\n"+
+ "Assunto principal: "+subject+".\n"+
+ "Estilo: "+get("style")+".\n"+
+ "Paleta de cores: "+get("colors")+".\n"+
+ "Iluminação: "+get("light")+".\n"+
+ "Composição: "+(get("composition")||"composição equilibrada e clara")+".\n"+
+ "Formato: "+get("format")+".\n"+
+ "Restrições e preservação: "+(get("avoid")||"evite elementos desnecessários e mantenha coerência visual")+".\n"+
+ "Priorize clareza, consistência e qualidade. Não acrescente elementos que contrariem as instruções.";
+ document.getElementById("promptResult").textContent=prompt;
+ document.getElementById("promptResult").classList.remove("hidden");
+ document.getElementById("copyPrompt").classList.remove("hidden");
+});
+document.getElementById("copyPrompt").addEventListener("click",()=>{
+ copyText(document.getElementById("promptResult").textContent,
+ document.getElementById("copyPrompt"));
+});
+
+/* AULAS */
+const lessons=[
+["O que é inteligência artificial","Entenda IA generativa, modelos e limitações.",`
+<p>IA generativa produz conteúdo a partir de padrões aprendidos em dados. Ela pode auxiliar com textos, imagens, áudio, vídeo e código.</p>
+<h4>Tipos de ferramenta</h4><ul><li>Assistentes de texto para escrever, explicar e planejar.</li><li>Geradores de imagem para ilustrações e designs.</li><li>Ferramentas de áudio e vídeo para diferentes mídias.</li><li>Assistentes de programação para criar e revisar código.</li></ul>
+<div class="example">Exercício: escolha uma tarefa que você faz manualmente e escreva como uma IA poderia ajudar. Depois, identifique o que ainda precisa ser conferido por uma pessoa.</div>`],
+["Anatomia de um prompt","Objetivo, contexto, detalhes, formato e restrições.",`
+<p>Um prompt é a instrução que orienta a resposta. A qualidade costuma melhorar quando o pedido deixa clara a tarefa e o resultado esperado.</p>
+<div class="example">OBJETIVO: criar um banner.\nCONTEXTO: loja gamer chamada MERCADÃO.\nESTILO: moderno e minimalista.\nCORES: azul e branco.\nCOMPOSIÇÃO: tigre à direita, nome à esquerda.\nFORMATO: horizontal.\nRESTRIÇÕES: sem poluição visual.</div>
+<h4>Exercício</h4><p>Transforme o pedido “faça uma arte” em uma instrução com pelo menos cinco desses elementos.</p>`],
+["Contexto e definição de papéis","Explique a tarefa e a perspectiva desejada.",`
+<p>Você pode pedir à IA para atuar como tutora, revisora, roteirista ou consultora. Isso orienta o tipo de resposta, mas não garante conhecimento especializado.</p>
+<div class="example">Atue como uma tutora de design para iniciantes. Explique como organizar um banner, usando exemplos simples, uma lista de verificação e sugestões práticas.</div>
+<p>Evite depender somente de frases como “você é a melhor IA do mundo”. O contexto e os critérios são mais úteis.</p>`],
+["Instruções por etapas","Separe tarefas complexas em partes menores.",`
+<p>Projetos longos ficam mais fáceis de revisar quando são divididos em etapas com entregas claras.</p>
+<div class="example">Etapa 1: proponha três conceitos.\nEtapa 2: compare vantagens e desvantagens.\nEtapa 3: desenvolva o conceito escolhido.\nEtapa 4: revise o resultado usando os requisitos iniciais.</div>
+<p>Confira cada etapa antes de seguir para a próxima.</p>`],
+["Exemplos e modelos","Ensine o formato desejado com exemplos.",`
+<p>Um exemplo de entrada e saída ajuda a IA a entender o padrão. Essa técnica é frequentemente chamada de few-shot prompting quando são fornecidos alguns exemplos.</p>
+<div class="example">Formato desejado: título curto + descrição + chamada para ação.\nExemplo: “Novo no servidor?” + “Confira os benefícios da comunidade.” + “Entre no Discord.”\nAgora crie três variações para [TEMA], seguindo o mesmo formato.</div>`],
+["Raciocínio e revisão","Peça explicações verificáveis e critérios claros.",`
+<p>Em vez de exigir uma resposta confiante, peça os passos verificáveis, as premissas e as limitações relevantes.</p>
+<div class="example">Explique a solução de forma resumida. Mostre as premissas, verifique o resultado e indique quais informações não podem ser confirmadas com os dados fornecidos.</div>
+<p>Uma explicação convincente ainda pode conter erros; confira os fatos importantes.</p>`],
+["Criação de imagens","Descreva assunto, estilo, composição e luz.",`
+<p>Comece pelo assunto principal. Em seguida, defina cenário, enquadramento, iluminação, paleta, materiais e formato.</p>
+<div class="example">Personagem 3D em uma rua brasileira durante o dia. Texturas de roupa detalhadas, cores equilibradas, luz natural, câmera na altura dos olhos e composição horizontal 16:9. Aparência semelhante a uma captura de jogo, sem elementos extras.</div>
+<p>Se o resultado estiver poluído, reduza os elementos e priorize o assunto.</p>`],
+["Perspectiva e lentes","Use termos visuais para orientar o enquadramento.",`
+<p>Low angle indica câmera baixa; high angle, câmera alta; top-down, vista de cima; close-up, enquadramento próximo; wide shot, visão mais ampla.</p>
+<div class="example">Fotografia de [ASSUNTO] em wide shot, câmera ligeiramente abaixo da altura dos olhos, lente grande-angular moderada e cenário amplo. Mantenha proporções naturais.</div>
+<p>Uma lente descrita no prompt sugere um visual, mas não equivale a controlar uma câmera real.</p>`],
+["Iluminação e cores","Defina a atmosfera visual com precisão.",`
+<p>Soft light gera sombras suaves; rim light destaca o contorno; backlight ilumina por trás; golden hour sugere luz quente do nascer ou pôr do sol.</p>
+<div class="example">Retrato de [ASSUNTO], luz suave principal, rim light discreta, paleta azul e branca e contraste moderado. Preserve detalhes nas sombras e evite brilho exagerado.</div>`],
+["Edição e imagens de referência","Mude somente o que for necessário.",`
+<p>Em ferramentas de edição, descreva a mudança e liste o que deve permanecer intacto. Nem todo modelo preserva perfeitamente os detalhes.</p>
+<div class="example">Altere somente a cor do foguete para roxo. Preserve o tigre, a tipografia, o fundo, o enquadramento e a posição dos elementos. Não acrescente nada.</div>
+<p>Se houver máscaras de edição, selecione a área correta para reduzir alterações indesejadas.</p>`],
+["Produtos e identidade visual","Crie peças comerciais consistentes.",`
+<p>Para produtos, informe materiais, contexto, luz, ângulo e características que não podem mudar. Para marcas, confira a grafia e a consistência do símbolo.</p>
+<div class="example">Crie um banner para MERCADÃO 🐯, loja gamer do Discord. Fundo limpo azul e branco, tigre como símbolo, texto grande e legível e hierarquia visual simples. Não crie textos adicionais.</div>`],
+["Roteiros e vídeos","Organize ações, cenas e duração.",`
+<p>Um roteiro útil inclui objetivo, público, gancho, sequência, narração e encerramento.</p>
+<div class="example">Crie um roteiro de 30 segundos para apresentar [PRODUTO]. Divida em quatro cenas. Para cada cena, informe duração, imagem, movimento da câmera, narração e texto na tela. Use linguagem natural.</div>`],
+["Código e criação de sites","Especifique requisitos e testes.",`
+<p>Ao solicitar código, diga quais tecnologias usar, quais botões precisam funcionar, como os dados devem ser tratados e quais navegadores devem ser considerados.</p>
+<div class="example">Crie uma página responsiva em HTML, CSS e JavaScript. Implemente pesquisa funcional, filtros, modo escuro e cópia de texto. Trate erros e campos vazios. Entregue o código completo e uma lista de testes.</div>
+<p>Teste o resultado em desktop e celular antes de publicar.</p>`],
+["Análise e pesquisa","Separe fatos, hipóteses e fontes.",`
+<p>Para assuntos factuais, peça referências verificáveis, datas, limitações e distinção entre evidências e inferências.</p>
+<div class="example">Compare as opções [A] e [B] pelos critérios [CRITÉRIOS]. Use informações atuais quando necessário, cite fontes verificáveis, indique a data dos dados e sinalize o que não foi possível confirmar.</div>`],
+["Automação e fluxos","Desenhe o processo antes de automatizar.",`
+<p>Uma automação geralmente tem entrada, processamento, condições, saída e tratamento de falhas.</p>
+<div class="example">Desenhe um fluxo para [TAREFA]. Liste os dados de entrada, as etapas, as condições, os erros possíveis e a saída esperada. Indique quais integrações e permissões seriam necessárias. Não execute ações externas.</div>`],
+["Segurança, ética e qualidade","Proteja dados e confira os resultados.",`
+<p>Não compartilhe senhas, chaves de API ou documentos privados desnecessariamente. Revise direitos de uso, permissões e informações geradas.</p>
+<div class="example">Revise este material procurando dados sem comprovação, erros, informações pessoais expostas e possíveis problemas de uso. Liste as correções necessárias sem reproduzir dados sensíveis.</div>
+<p>Conclusão: IA é uma ferramenta de apoio. A verificação continua sendo importante.</p>`]
+];
+
+function renderLessons(){
+ const list=document.getElementById("lessonList");
+ lessons.forEach((l,i)=>{
+  const d=document.createElement("details");d.className="lesson";
+  d.innerHTML=`<summary><span class="num">${String(i+1).padStart(2,"0")}</span><span>${l[0]}<br><small style="font-weight:400;color:var(--muted)">${l[1]}</small></span></summary><div class="lessonbody">${l[2]}<label style="display:flex;align-items:center;gap:8px;margin-top:17px;color:var(--blue);font-weight:800"><input type="checkbox" class="lessoncheck" data-index="${i}" style="accent-color:var(--blue)"> Aula concluída</label></div>`;
+  list.appendChild(d);
+ });
+ document.querySelectorAll(".lessoncheck").forEach(c=>{
+  try{c.checked=localStorage.getItem("mercadao-lesson-"+c.dataset.index)==="1"}catch(e){}
+  c.addEventListener("change",()=>{
+   try{localStorage.setItem("mercadao-lesson-"+c.dataset.index,c.checked?"1":"0")}catch(e){}
+   updateProgress();
+  });
+ });
+ updateProgress();
+}
+function updateProgress(){
+ const all=[...document.querySelectorAll(".lessoncheck")];
+ const done=all.filter(x=>x.checked).length;
+ document.getElementById("progress").style.width=(done/all.length*100)+"%";
+ document.getElementById("progressText").textContent=`${done} de ${all.length} aulas concluídas`;
+}
+renderLessons();
+
+/* BIBLIOTECA DE ATALHOS */
+const commands=[
+["Perspectiva","/explodedview","Vista explodida com peças separadas.","exploded view"],
+["Perspectiva","/360view","Vista panorâmica ou apresentação ao redor do objeto.","360-degree view"],
+["Perspectiva","/droneview","Vista aérea semelhante a uma tomada de drone.","aerial drone view"],
+["Perspectiva","/aerialview","Vista de cima mostrando o cenário.","aerial view"],
+["Perspectiva","/birdseyeview","Vista elevada ampla.","bird's-eye view"],
+["Perspectiva","/topdown","Câmera apontada diretamente para baixo.","top-down view"],
+["Perspectiva","/overhead","Vista a partir de cima.","overhead shot"],
+["Perspectiva","/cutaway","Corte ilustrativo revelando o interior.","cutaway view"],
+["Perspectiva","/xray","Aparência ilustrativa de raio X.","x-ray style"],
+["Perspectiva","/blueprint","Desenho técnico em estilo de planta.","blueprint"],
+["Perspectiva","/isometric","Perspectiva isométrica.","isometric view"],
+["Perspectiva","/orthographic","Projeção ortográfica.","orthographic projection"],
+["Perspectiva","/lowangle","Câmera baixa olhando para cima.","low-angle shot"],
+["Perspectiva","/highangle","Câmera posicionada acima do assunto.","high-angle shot"],
+["Perspectiva","/eyelevel","Câmera na altura dos olhos.","eye-level view"],
+["Perspectiva","/dutchangle","Horizonte inclinado.","Dutch angle"],
+["Perspectiva","/wideangle","Enquadramento amplo.","wide-angle view"],
+["Perspectiva","/fisheye","Efeito de lente olho de peixe.","fisheye lens"],
+["Perspectiva","/pov","Ponto de vista de uma pessoa.","point of view"],
+["Perspectiva","/closeup","Enquadramento próximo.","close-up"],
+["Perspectiva","/macro","Detalhes muito aproximados.","macro photography"],
+["Perspectiva","/fullbody","Mostrar o personagem de corpo inteiro.","full-body shot"],
+["Perspectiva","/establishingshot","Apresentar o cenário geral.","establishing shot"],
+["Perspectiva","/overtheshoulder","Enquadramento por cima do ombro.","over-the-shoulder shot"],
+["Câmera","/24mm","Visual amplo associado a lente de 24 mm.","24mm lens look"],
+["Câmera","/35mm","Visual associado a lente de 35 mm.","35mm lens look"],
+["Câmera","/50mm","Visual associado a lente de 50 mm.","50mm lens look"],
+["Câmera","/85mm","Visual de retrato associado a 85 mm.","85mm portrait lens"],
+["Câmera","/telephoto","Enquadramento de teleobjetiva.","telephoto lens"],
+["Câmera","/anamorphic","Estética de lente anamórfica.","anamorphic lens look"],
+["Câmera","/handheld","Aparência de câmera na mão.","handheld camera"],
+["Câmera","/tripod","Câmera fixa em tripé.","locked tripod shot"],
+["Câmera","/tracking","A câmera acompanha o assunto.","tracking shot"],
+["Câmera","/dollyin","Movimento de câmera se aproximando.","dolly-in"],
+["Câmera","/dollyout","Movimento de câmera se afastando.","dolly-out"],
+["Câmera","/panleft","Panorâmica da câmera para a esquerda.","pan left"],
+["Câmera","/panright","Panorâmica da câmera para a direita.","pan right"],
+["Câmera","/tiltup","Câmera inclina para cima.","tilt up"],
+["Câmera","/tiltdown","Câmera inclina para baixo.","tilt down"],
+["Câmera","/crane","Movimento de câmera elevado e amplo.","crane shot"],
+["Câmera","/orbit","Movimento ao redor do assunto.","orbit shot"],
+["Câmera","/zoom","Mudança de ampliação da imagem.","zoom shot"],
+["Iluminação","/goldenhour","Luz quente do nascer ou pôr do sol.","golden hour"],
+["Iluminação","/bluehour","Luz azul do crepúsculo.","blue hour"],
+["Iluminação","/dramaticlighting","Luz contrastada e dramática.","dramatic lighting"],
+["Iluminação","/softlight","Luz suave e sombras delicadas.","soft lighting"],
+["Iluminação","/hardlight","Sombras marcadas e contraste alto.","hard lighting"],
+["Iluminação","/rimlight","Luz de contorno no assunto.","rim lighting"],
+["Iluminação","/backlight","Luz principal atrás do assunto.","backlighting"],
+["Iluminação","/volumetric","Feixes de luz visíveis no ambiente.","volumetric lighting"],
+["Iluminação","/neon","Luz colorida com aparência de néon.","neon lighting"],
+["Iluminação","/silhouette","Assunto representado como silhueta.","silhouette lighting"],
+["Iluminação","/windowlight","Luz natural de janela.","window lighting"],
+["Iluminação","/studiolight","Iluminação de estúdio controlada.","studio lighting"],
+["Iluminação","/moody","Atmosfera visual expressiva e sombria.","moody lighting"],
+["Iluminação","/sunflare","Reflexo luminoso semelhante ao flare solar.","sun flare"],
+["Iluminação","/rimglow","Contorno luminoso discreto.","subtle rim glow"],
+["Foco","/bokeh","Pontos de luz desfocados.","bokeh"],
+["Foco","/depthoffield","Controlar a profundidade de campo.","depth of field"],
+["Foco","/deepfocus","Manter diversos planos em foco.","deep focus"],
+["Foco","/selectivefocus","Destacar uma região nítida.","selective focus"],
+["Foco","/backgroundblur","Desfocar o fundo.","blurred background"],
+["Foco","/foregroundblur","Desfocar elementos próximos.","foreground blur"],
+["Foco","/sharpfocus","Priorizar nitidez no assunto.","sharp focus"],
+["Foco","/motionblur","Sugerir movimento com desfoque.","motion blur"],
+["Estilo","/photorealistic","Aparência de fotografia realista.","photorealistic"],
+["Estilo","/hyperrealistic","Ênfase em detalhes realistas.","hyperrealistic"],
+["Estilo","/cinematic","Linguagem visual cinematográfica.","cinematic style"],
+["Estilo","/3drender","Aparência de render 3D.","3D render"],
+["Estilo","/unrealengine","Inspirar-se na estética de render 3D de jogos.","game-engine render style"],
+["Estilo","/productphoto","Fotografia comercial de produto.","product photography"],
+["Estilo","/editorial","Estética editorial.","editorial photography"],
+["Estilo","/streetphoto","Fotografia de rua.","street photography"],
+["Estilo","/documentary","Aparência documental.","documentary photography"],
+["Estilo","/fashion","Estética de fotografia de moda.","fashion photography"],
+["Estilo","/minimalist","Design com poucos elementos.","minimalist design"],
+["Estilo","/vintage","Estética visual de época.","vintage aesthetic"],
+["Estilo","/cyberpunk","Estética futurista urbana.","cyberpunk aesthetic"],
+["Estilo","/isometricicon","Ícone tridimensional isométrico.","isometric icon"],
+["Estilo","/infographic","Organização visual de informações.","infographic"],
+["Estilo","/poster","Composição de cartaz.","poster design"],
+["Estilo","/editoriallayout","Layout editorial organizado.","editorial layout"],
+["Estilo","/lowpoly","Modelo visual com polígonos simplificados.","low-poly style"],
+["Estilo","/clayrender","Aparência de objeto feito de argila.","clay render"],
+["Estilo","/wireframe","Representação com linhas de malha.","wireframe"],
+["Estilo","/pixelart","Estética de arte em pixels.","pixel art"],
+["Estilo","/watercolor","Aparência de pintura em aquarela.","watercolor"],
+["Estilo","/comicbook","Estética de quadrinhos.","comic-book style"],
+["Estilo","/papercraft","Aparência de peças feitas de papel.","paper craft"],
+["Edição","/preservecomposition","Preservar a composição original.","preserve the composition"],
+["Edição","/removeobject","Solicitar remoção de um objeto específico.","remove the specified object"],
+["Edição","/changebackground","Alterar o fundo da imagem.","change only the background"],
+["Edição","/transparentbackground","Solicitar fundo transparente, quando suportado.","transparent background"],
+["Edição","/colorgrade","Ajustar a gradação de cores.","color grading"],
+["Edição","/restoreimage","Tentar restaurar uma imagem antiga.","image restoration"],
+["Edição","/characterconsistency","Buscar consistência visual de personagem.","consistent character design"],
+["Edição","/productmockup","Apresentar um produto em uma simulação visual.","product mockup"],
+["Edição","/textoverlay","Definir texto sobreposto à imagem.","text overlay"],
+["Edição","/negativeprompt","Listar elementos indesejados, se suportado.","negative prompt"],
+["Edição","/seamlesspattern","Criar padrão repetível sem emendas aparentes.","seamless pattern"],
+["Edição","/beforeafter","Comparação visual antes e depois.","before and after"],
+["Edição","/upscale","Solicitar ampliação de resolução, se suportada.","image upscaling"],
+["Edição","/denoise","Reduzir ruído da imagem.","denoise image"],
+["Edição","/recolor","Alterar cores de elementos selecionados.","recolor selected object"],
+["Edição","/relight","Modificar a iluminação aparente.","relight image"],
+["Edição","/inpainting","Editar uma área específica da imagem.","image inpainting"],
+["Edição","/outpainting","Expandir a imagem além das bordas originais.","outpainting"],
+["Edição","/styletransfer","Aplicar características de um estilo de referência.","style transfer"],
+["Edição","/compositionguide","Definir a organização dos elementos.","composition guide"],
+["Edição","/productcutout","Isolar visualmente um produto do fundo.","product cutout"],
+["Edição","/logo","Solicitar uma proposta de logotipo.","logo design"],
+["Edição","/typography","Definir tratamento tipográfico.","typography design"],
+["Edição","/colorpalette","Definir uma paleta de cores.","color palette"],
+["Edição","/cleanbackground","Solicitar um fundo visualmente limpo.","clean background"],
+["Edição","/realistictexture","Priorizar texturas visualmente realistas.","realistic textures"],
+["Edição","/consistentlighting","Manter iluminação coerente na cena.","consistent lighting"],
+["Edição","/naturalshadows","Solicitar sombras naturais.","natural shadows"],
+["Edição","/subtleglow","Adicionar brilho sutil.","subtle glow"]
+];
+
+const categories=["Todas",...new Set(commands.map(c=>c[0]))];
+let activeCategory="Todas";
+const categoryBox=document.getElementById("categories");
+const commandGrid=document.getElementById("commandGrid");
+const commandSearch=document.getElementById("commandSearch");
+
+function renderCategories(){
+ categoryBox.replaceChildren();
+ categories.forEach(name=>{
+  const b=document.createElement("button");
+  b.type="button";b.className="cat"+(name===activeCategory?" active":"");
+  b.textContent=name;b.setAttribute("aria-pressed",String(name===activeCategory));
+  b.addEventListener("click",()=>{
+   activeCategory=name;renderCategories();renderCommands();
+  });
+  categoryBox.appendChild(b);
+ });
+}
+function renderCommands(){
+ const q=commandSearch.value.trim().toLocaleLowerCase("pt-BR");
+ const filtered=commands.filter(c=>
+  (activeCategory==="Todas"||c[0]===activeCategory)&&
+  c.join(" ").toLocaleLowerCase("pt-BR").includes(q)
+ );
+ commandGrid.replaceChildren();
+ if(!filtered.length){
+  const p=document.createElement("p");p.className="sub";
+  p.textContent="Nenhum resultado encontrado. Experimente outra palavra.";
+  commandGrid.appendChild(p);
+ }else filtered.forEach(c=>{
+  const card=document.createElement("article");card.className="cmd";
+  const top=document.createElement("div");top.className="cmdtop";
+  const code=document.createElement("code");code.textContent=c[1];
+  const tag=document.createElement("span");tag.className="tag";tag.textContent=c[0];
+  top.append(code,tag);
+  const desc=document.createElement("p");desc.textContent=c[2];
+  const b=document.createElement("button");b.type="button";b.className="copy";
+  b.textContent="Copiar atalho";b.dataset.copy=c[1];
+  card.append(top,desc,b);commandGrid.appendChild(card);
+ });
+ document.getElementById("commandCount").textContent=
+  `${filtered.length} de ${commands.length} atalhos encontrados.`;
+}
+commandSearch.addEventListener("input",renderCommands);
+renderCategories();renderCommands();
+
+/* QUIZ */
+document.getElementById("checkQuiz").addEventListener("click",()=>{
+ const answers={q1:"1",q2:"1",q3:"1",q4:"1",q5:"1"};
+ let score=0,answered=0;
+ for(const [q,correct] of Object.entries(answers)){
+  const selected=document.querySelector(`input[name="${q}"]:checked`);
+  if(selected){answered++;if(selected.value===correct)score++}
+ }
+ const result=document.getElementById("quizResult");
+ if(answered<5){
+  result.textContent=`Você respondeu ${answered} de 5 perguntas. Responda todas para conferir o resultado.`;
+  return;
+ }
+ result.textContent=`Resultado: ${score}/5. `+
+  (score===5?"Excelente! Você domina os fundamentos.":score>=3?
+  "Muito bem! Revise as aulas dos assuntos que geraram dúvidas.":
+  "Continue estudando e tente novamente. Pratique com os exemplos das aulas.");
+});
+</script>
+</body>
+</html>
